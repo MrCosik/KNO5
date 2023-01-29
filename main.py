@@ -1,3 +1,5 @@
+import time
+
 from treelib import Tree, Node
 
 # 1)
@@ -38,7 +40,7 @@ def dupilcate_node_path_check(tree, node):
 
 
 print('----------------------------------------')
-print('b)')
+print('2 b)')
 x = tree.get_node("h2")
 print(dupilcate_node_path_check(tree, x))
 x = tree.get_node("m")
@@ -59,3 +61,39 @@ reachable_states = {"Gdansk": [["Gdynia", 24], ["Koscierzyna", 58], ["Tczew", 33
                     'Tczew': [['Gdansk', 33], ['Koscierzyna', 59], ['Elblag', 53]],
                     'Elblag': [['Gdansk', 63], ['Tczew', 53]]
                     }
+
+
+# b)
+
+def breadth_first_search(start_state, target_state):
+    id = 0
+    tree = Tree()
+    current_node = tree.create_node(start_state, id)
+    fifo_queue = []
+    fifo_queue.append(current_node)
+    while id < 200000:
+        if len(fifo_queue) == 0:
+            tree.show()
+            print("failed to reach the target state")
+            return 1
+        current_node = fifo_queue[0]
+        if current_node.tag == target_state:
+            tree.show()
+            print("the target state " + str(current_node.tag) + " with id = " + str(
+                current_node.identifier) + " has been reached!")
+            return 0
+        del (fifo_queue[0])
+        for elem in reachable_states[current_node.tag]:
+            id += 1
+            new_elem = tree.create_node(elem[0], id, parent=current_node.identifier)
+            if not dupilcate_node_path_check(tree, new_elem): #sprawdzanie czy node już znajduje się w drzewie
+                fifo_queue.append(new_elem)
+    print("time limit exceeded")
+
+
+print('----------------------------------------')
+print('2 c)')
+start = time.time()
+breadth_first_search("Gdansk", "Ustka")
+end = time.time()
+print(end - start)

@@ -1,4 +1,5 @@
 from treelib import Tree, Node
+
 # 1)
 tree = Tree()
 tree.create_node("Harry", "h")
@@ -20,8 +21,9 @@ z = tree.get_node("h")
 print(z.tag)
 print(z.is_root())
 
+
 # b)
-def dupilcate_node_path_check(tree,node):
+def dupilcate_node_path_check(tree, node):
     current_node = node
     duplicates = set()
     while current_node.identifier != tree.root:
@@ -34,9 +36,26 @@ def dupilcate_node_path_check(tree,node):
     else:
         return False
 
+
 print('----------------------------------------')
 print('b)')
 x = tree.get_node("h2")
 print(dupilcate_node_path_check(tree, x))
 x = tree.get_node("m")
 print(dupilcate_node_path_check(tree, x))
+
+# 2
+reachable_states = {"Gdansk": [["Gdynia", 24], ["Koscierzyna", 58], ["Tczew", 33], ["Elblag", 63]],
+                    "Gdynia": [["Gdansk", 24], ["Lebork", 60], ["Wladyslawowo", 42]],
+                    "Koscierzyna": [["Gdansk", 58], ['Lebork', 58], ['Bytow', 40], ['Chojnice', 70], ['Tczew', 59]],
+                    'Chojnice': [['Koscierzyna', 70], ['Bytow', 65]],
+                    'Bytow': [['Chojnice', 65], ['Koscierzyna', 40], ['Slupsk', 70]],
+                    'Slupsk': [['Bytow', 70], ['Lebork', 55], ['Ustka', 21]],
+                    'Ustka': [['Slupsk', 21], ['Leba', 64]],
+                    'Leba': [['Ustka', 64], ['Wladyslawowo', 66], ['Lebork', 29]],
+                    'Wladyslawowo': [['Leba', 66], ['Hel', 35], ['Gdynia', 42]],
+                    'Hel': [['Wladyslawowo', 35]],
+                    'Lebork': [['Leba', 29], ['Slupsk', 55], ['Koscierzyna', 58], ['Gdynia', 60]],
+                    'Tczew': [['Gdansk', 33], ['Koscierzyna', 59], ['Elblag', 53]],
+                    'Elblag': [['Gdansk', 63], ['Tczew', 53]]
+                    }
